@@ -26,7 +26,11 @@ class Terrestial : Race, RaceDesigns {
 			uint goal = designs.classify(dsg, DP_Unknown);
 			if(goal == DP_Unknown)
 				continue;
-
+		bool shouldUse = (dsg.name == "Harrass");
+		if (!shouldUse) 
+		  continue;
+		
+			
 			defaultDesigns.insertLast(dsg);
 			defaultGoals.insertLast(goal);
 		}

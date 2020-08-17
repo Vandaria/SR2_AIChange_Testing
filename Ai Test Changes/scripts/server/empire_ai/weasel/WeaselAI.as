@@ -123,7 +123,7 @@ final class AIBehavior {
 	//The maximum colonizations this AI can do in one turn
 	uint maxColonizations = UINT_MAX;
 	//How many colonizations we're guaranteed to be able to do in one turn regardless of finances
-	uint guaranteeColonizations = 2;
+	uint guaranteeColonizations = 1;
 	//How many colonizations at most we can be doing at once
 	uint maxConcurrentColonizations = UINT_MAX;
 	//Whether this AI will colonize planets in systems owned by someone else
@@ -168,14 +168,14 @@ final class AIBehavior {
 	double focusColonizeHighTierWeight = 1.0;
 
 	//How many potential designs are evaluated before choosing the best one
-	uint designEvaluateCount = 10;
+	uint designEvaluateCount = 100;
 	//How long a fleet has to be fully idle before it returns to its stationed system
 	double fleetIdleReturnStationedTime = 60.0;
 	//How long we try to have a fleet be capable of firing before running out of supplies
-	double fleetAimSupplyDuration = 2.0 * 60.0;
+	double fleetAimSupplyDuration = 180;
 
 	//How long a potential construction can take at most before we consider it unreasonable
-	double constructionMaxTime = 10.0 * 60.0;
+	double constructionMaxTime = 8.0 * 60.0;
 	//How long a factory has to have been idle for us to consider constructing labor storage
 	double laborStoreIdleTimer = 60.0;
 	//Maximum amount of time worth of labor we want to store in our warehouses
@@ -194,17 +194,17 @@ final class AIBehavior {
 	//Maximum combat fleets we can have in service at once (counts starting fleet(s))
 	uint maxActiveFleets = UINT_MAX;
 	//How much flagship size we try to make per available money
-	double shipSizePerMoney = 1.0 / 3.5;
+	double shipSizePerMoney = 1.5 / 3.5;
 	//How much flagship size we try to make per available labor
-	double shipSizePerLabor = 1.0 / 0.33;
+	double shipSizePerLabor = 1.0 / 0.5;
 	//How much maintenance we expect per ship size
-	double maintenancePerShipSize = 2.0;
+	double maintenancePerShipSize = 1.5;
 	//Minimum percentage increase in size before we decide to retrofit a flagship to be bigger
 	double shipRetrofitThreshold = 0.5;
 	//Whether to retrofit our free starting fleet if appropriate
 	bool retrofitFreeFleets = false;
 	//Minimum percentage of average current flagship size new fleets should be
-	double flagshipBuildMinAvgSize = 1.00;
+	double flagshipBuildMinAvgSize = 0.5;
 	//Minimum game time before we consider constructing new flagships
 	double flagshipBuildMinGameTime = 4.0 * 60.0;
 	//Whether to build factories when we need labor
@@ -219,7 +219,7 @@ final class AIBehavior {
 	bool supportOrderWaitOnFactory = true;
 
 	//How much stronger we need to be than a remnant fleet to clear it
-	double remnantOverkillFactor = 1.5;
+	double remnantOverkillFactor = 1.3;
 	//Whether to allow idle fleets to be sent to clear remnants
 	// Modified by Relations
 	bool remnantAllowArbitraryClear = true;
@@ -235,13 +235,13 @@ final class AIBehavior {
 	//How much stronger we need to be than someone to declare war out of hatred
 	double hatredWarOverkill = 0.5;
 	//How much stronger we need to be than someone to try to take them out in an aggressive war
-	double aggressiveWarOverkill = 1.5;
+	double aggressiveWarOverkill = 0.8;
 	//How much stronger we want to be before we attack a system
-	double attackStrengthOverkill = 1.5;
+	double attackStrengthOverkill = 0.8;
 	//How many battles we can be performing at once
 	uint maxBattles = UINT_MAX;
 	//How much we try to overkill while fighting
-	double battleStrengthOverkill = 1.5;
+	double battleStrengthOverkill = 0.8;
 	//How many fleets we don't commit to attacks when we're already currently fighting
 	uint battleReserveFleets = 1;
 	//How much extra supply we try to have before starting a capture, to make sure we can actually do it
@@ -252,7 +252,7 @@ final class AIBehavior {
 	double stagingToFactoryFill = 0.6;
 
 	//How much ftl is reserved for critical applications
-	double ftlReservePctCritical = 0.25;
+	double ftlReservePctCritical = 0.4;
 	//How much ftl is reserved to not be used for background applications
 	double ftlReservePctNormal = 0.25;
 
@@ -320,16 +320,9 @@ final class AIBehavior {
 		//Low difficulties are worse at designing
 		if(diff <= 0)
 			designEvaluateCount = 3;
-		else if(diff <= 1)
-			designEvaluateCount = 8;
-		else
-			designEvaluateCount = 12;
-
 		//Easy is a bit slow
 		if(diff <= 0)
 			focusPerTick = 1;
-		else if(diff >= 2)
-			focusPerTick = 3;
 	}
 };
 
